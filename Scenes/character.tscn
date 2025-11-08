@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxpgiywyu8ia2"]
+
+[ext_resource type="Script" uid="uid://cnmwmyhnsd1v1" path="res://Scripts/character.gd" id="1_ushfy"]
+[ext_resource type="Texture2D" uid="uid://d0jo43xa8ljw5" path="res://assets/art/characters/shadow.png" id="2_owm7s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nytcm"]
+radius = 0.99993587
+height = 9.999359
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_ushfy")
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+position = Vector2(-4, -1)
+scale = Vector2(0.57142866, 0.5)
+texture = ExtResource("2_owm7s")
+centered = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+rotation = -1.55947
+shape = SubResource("CapsuleShape2D_nytcm")
