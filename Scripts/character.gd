@@ -10,6 +10,10 @@ var STATE = {
 	"IDLE": "idle",
 	"WALK": "walk",
 	"ATTACK": "punch",
+	"JUMP_READY": "jump_ready",
+	"JUMP": "jump",
+	"JUMP_OVER": "jump_over",
+	"JUMP_KICK": "jump_kick",
 }
 var current_state = STATE["IDLE"]
 
@@ -19,28 +23,20 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	handle_input(delta)
 	self_Flip()
-	self_animation()
+	animation_player.play(current_state)
 	move_and_slide()
 
 # 移动
 func handle_input(delta: float) -> void:
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = direction * speed * delta
-	if can_attack() and Input.is_action_pressed("attack"):
-		current_state = STATE["ATTACK"]
-
-
-# 处理动画
-func self_animation() -> void:
 	if can_move():
-		if velocity == Vector2.ZERO:
-			current_state = STATE["IDLE"]
-		else:
-			current_state = STATE["WALK"]
-	else:
+		velocity = direction * speed * delta
+		current_state = STATE["IDLE"] if velocity == Vector2.ZERO else STATE["WALK"]
+	if can_attack() and Input.is_action_pressed("attack"):
 		velocity = Vector2.ZERO
 		current_state = STATE["ATTACK"]
-	animation_player.play(current_state)
+	if can_jump() and Input.is_action_pressed("jump"):
+		current_state = STATE["JUMP_READY"]
 
 # 处理翻转
 func self_Flip() -> void:
@@ -53,11 +49,16 @@ func self_Flip() -> void:
 
 # 是否可以移动
 func can_move() -> bool:
-	return current_state == STATE["IDLE"] or current_state == STATE["WALK"]
+	return [STATE["IDLE"], STATE["WALK"]].has(current_state)
 
 # 是否可以攻击
 func can_attack() -> bool:
 	return current_state == STATE["IDLE"] or current_state == STATE["WALK"]
+
+# 是否可以跳跃
+func can_jump() -> bool:
+	return [STATE["IDLE"], STATE["WALK"]].has(current_state)
+
 
 # 攻击结束事件监听
 func on_attack_finished() -> void:
@@ -67,3 +68,7 @@ func on_attack_finished() -> void:
 func on_damage_emitter(dr: DamageReceiver) -> void:
 	var direction = Vector2.LEFT if dr.global_position.x < global_position.x else Vector2.RIGHT
 	dr.damage_received.emit(damage, direction)
+
+# 跳跃准备结束事件
+func on_jump_ready_finished() -> void:
+	current_state = STATE["JUMP"]

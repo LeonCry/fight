@@ -17,7 +17,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	update_animation()
-	print("height: ", height, height_speed)
 	position.x += velocity.x * delta
 	height += height_speed * delta * h_direction.y
 	if height < -MAX_HEIGHT:
@@ -31,8 +30,7 @@ func on_damage_received(damage: int, direction: Vector2) -> void:
 	if (current_state == State.IDLE):
 		current_state = State.DESTROYED
 		velocity = direction * speed
-		height_speed = 2
-		print("barrel damage_received: ", damage, direction)
+		height_speed = damage / 2.0
 
 func update_animation() -> void:
 	if (current_state == State.IDLE):
