@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvbpbp8ipf6mc"]
+[gd_scene load_steps=7 format=3 uid="uid://cvbpbp8ipf6mc"]
 
 [ext_resource type="Script" uid="uid://c0mljkxgxeplw" path="res://Scripts/world.gd" id="1_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://c7wp77t6levi4" path="res://Scenes/stage.tscn" id="1_a02cp"]
 [ext_resource type="PackedScene" uid="uid://qqiit66twnnd" path="res://Scenes/Player.tscn" id="2_go701"]
 [ext_resource type="PackedScene" uid="uid://c7hiy6k27d6eu" path="res://Scenes/barrel.tscn" id="4_8j60k"]
+[ext_resource type="PackedScene" uid="uid://ca7l75qxsctpj" path="res://Scenes/enemy.tscn" id="5_fo5ed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5a7ea"]
 size = Vector2(2, 32)
@@ -32,11 +33,18 @@ y_sort_enabled = true
 
 [node name="Player" parent="ActorsContainer" instance=ExtResource("2_go701")]
 position = Vector2(10, 45)
-collision_layer = 2
-collision_mask = 5
-speed = 1000.0
-health = 100
-damage = 5
 
 [node name="Barrel" parent="ActorsContainer" instance=ExtResource("4_8j60k")]
 position = Vector2(31, 45)
+
+[node name="Enemy" parent="ActorsContainer" node_paths=PackedStringArray("player") instance=ExtResource("5_fo5ed")]
+position = Vector2(49, 46)
+player = NodePath("../Player")
+speed = 1000.0
+health = 20
+
+[node name="Enemy2" parent="ActorsContainer" node_paths=PackedStringArray("player") instance=ExtResource("5_fo5ed")]
+position = Vector2(30, 58)
+player = NodePath("../Player")
+speed = 1000.0
+health = 100

@@ -1,3 +1,12 @@
 {
-    "godotTools.editorPath.godot4": "/Applications/Godot.app"
+  "godotTools.editorPath.godot4": "/Applications/Godot.app",
+  "files.associations": {
+    "*.gd": "gdscript"
+  },
+  "[gdscript]": {
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "editor.renderWhitespace": "all"
+  }
 }

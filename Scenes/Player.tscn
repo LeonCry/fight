@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://qqiit66twnnd"]
+[gd_scene load_steps=15 format=3 uid="uid://qqiit66twnnd"]
 
 [ext_resource type="PackedScene" uid="uid://bxpgiywyu8ia2" path="res://Scenes/character.tscn" id="1_rpqav"]
+[ext_resource type="Script" uid="uid://fpfern4hu2n6" path="res://Scripts/player.gd" id="2_gntrk"]
 [ext_resource type="Texture2D" uid="uid://cxg8d6qg72u72" path="res://assets/art/characters/player.png" id="2_kyqiw"]
 
 [sub_resource type="Animation" id="Animation_5ixxa"]
@@ -27,7 +28,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [60]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_kyqiw"]
@@ -43,6 +44,125 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_52ee3"]
+resource_name = "jump"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [62]
+}
+
+[sub_resource type="Animation" id="Animation_megsn"]
+resource_name = "jump_kick"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [63]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageEmitter:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bhhdu"]
+resource_name = "jump_over"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [64]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_jump_over_finished"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamageEmitter:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_nn08x"]
+resource_name = "jump_ready"
+length = 0.05
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [60, 61]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_jump_ready_finished"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_dewec"]
@@ -102,87 +222,6 @@ tracks/0/keys = {
 "values": [10, 11, 12, 13, 14, 15, 16, 17]
 }
 
-[sub_resource type="Animation" id="Animation_nn08x"]
-resource_name = "jump_ready"
-length = 0.05
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [60, 61]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.05),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"on_jump_ready_finished"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_52ee3"]
-resource_name = "jump"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [62]
-}
-
-[sub_resource type="Animation" id="Animation_bhhdu"]
-resource_name = "jump_over"
-length = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [64]
-}
-
-[sub_resource type="Animation" id="Animation_megsn"]
-resource_name = "jump_kick"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [63]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ixxa"]
 _data = {
 &"RESET": SubResource("Animation_5ixxa"),
@@ -198,8 +237,18 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyqiw"]
 size = Vector2(7.5, 2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
+size = Vector2(3, 5.5)
+
 [node name="Player" instance=ExtResource("1_rpqav")]
-speed = 100.0
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("2_gntrk")
+speed = 1000.0
+health = 100
+damage = 5
+gravity = 120.0
+jump_velocity = -40.0
 
 [node name="CharacterSprite" parent="." index="0"]
 position = Vector2(0, -13)
@@ -208,7 +257,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_kyqiw")
 hframes = 10
 vframes = 10
-frame = 60
 
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
@@ -222,4 +270,12 @@ position = Vector2(1, -7)
 position = Vector2(4.25, 0)
 shape = SubResource("RectangleShape2D_kyqiw")
 
+[node name="DamageReceiver" parent="." index="5"]
+collision_layer = 16
+
+[node name="CollisionShape2D" parent="DamageReceiver" index="0"]
+position = Vector2(0, -8.25)
+shape = SubResource("RectangleShape2D_gntrk")
+
 [editable path="DamageEmitter"]
+[editable path="DamageReceiver"]

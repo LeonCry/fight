@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxpgiywyu8ia2"]
+[gd_scene load_steps=6 format=3 uid="uid://bxpgiywyu8ia2"]
 
 [ext_resource type="Script" uid="uid://cnmwmyhnsd1v1" path="res://Scripts/character.gd" id="1_ushfy"]
 [ext_resource type="Texture2D" uid="uid://d0jo43xa8ljw5" path="res://assets/art/characters/shadow.png" id="2_owm7s"]
 [ext_resource type="PackedScene" uid="uid://b4grksfw0ml58" path="res://Scenes/colliders/damage_emitter.tscn" id="3_owm7s"]
+[ext_resource type="PackedScene" uid="uid://cb8f8dq7j6qli" path="res://Scenes/colliders/damage_receiver.tscn" id="4_nytcm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nytcm"]
 radius = 0.99993587
@@ -32,4 +33,7 @@ shape = SubResource("CapsuleShape2D_nytcm")
 position = Vector2(0, -8)
 collision_mask = 96
 
+[node name="DamageReceiver" parent="." instance=ExtResource("4_nytcm")]
+
 [editable path="DamageEmitter"]
+[editable path="DamageReceiver"]
